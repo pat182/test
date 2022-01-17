@@ -31,7 +31,7 @@ class AuthController extends Controller
             $cred = [];
             $payload['user_profile']['user_id'] = $user->user_id;
             $profile = UserProfile::create($payload['user_profile']);    
-            // $this->userService->sendEmailReg($user);
+            $this->userService->sendEmailReg($user);
             $cred = array_merge($cred,
                 [
                     "username" => $payload['user']['username'],
