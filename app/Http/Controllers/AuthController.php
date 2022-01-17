@@ -61,7 +61,7 @@ class AuthController extends Controller
         return $auth;
     }
     public function logout() {
-        // auth()->logout();
+        auth()->logout();
         Socket::BrodCast(["username" => auth()->user()->username,"action" => 'logout']);
         return response()->json(['message' => 'User successfully signed out']);
     }
