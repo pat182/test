@@ -28,10 +28,19 @@ class AuthController extends Controller
                         ['password' => bcrypt($payload['user']['password'])])
                     );
         if($user->user_id){
+            $cred = [];
             $payload['user_profile']['user_id'] = $user->user_id;
             $profile = UserProfile::create($payload['user_profile']);    
-            $this->userService->sendEmailReg($user);
+            // $this->userService->sendEmailReg($user);
+            $cred = array_merge($cred,
+                [
+                    "username" => $payload['user']['username'],
+                    "permission_type_id" => $payload['user']['permission_type_id'],
+                    "password" => $payload['user']['password']
+                ]
+            );
             DB::commit();
+            $auth = $this->authService->login($cred);
 
         }else{
             DB::rollback();
@@ -41,7 +50,8 @@ class AuthController extends Controller
         }
         return response()->json([
             'message' => 'User successfully registered',
-            'user' => $user
+            'user' => $user,
+            'auth' => $auth
         ], 201);
     }
     public function login(LogInRequest $request){
