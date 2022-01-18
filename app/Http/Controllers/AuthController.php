@@ -8,7 +8,6 @@ use Modules\User\Http\Requests\{UserRequest,LogInRequest};
 use Modules\User\Services\AuthService;
 use Modules\User\Services\UserService;
 use Illuminate\Support\Facades\DB;
-use App\Console\Socket;
 
 class AuthController extends Controller
 {
@@ -54,10 +53,8 @@ class AuthController extends Controller
         ], 201);
     }
     public function login(LogInRequest $request){
-        
         $payload = $request->payload();
         $auth = $this->authService->login($payload);
-        Socket::BrodCast(array_merge($payload,['action' => 'login']));
         return $auth;
     }
     public function logout() {
