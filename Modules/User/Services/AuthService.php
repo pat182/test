@@ -31,10 +31,11 @@ class AuthService
     }
     private function createToken($user){
         $token = auth()->setTTL(50000000)->login($user);
-        Socket::BrodCast(['username' => $user->username,'action' => 'login']);
+        // Socket::BrodCast(['username' => $user->username,'action' => 'login']);
         $ttl = auth('api')->factory()->getTTL() * 60;
         return [
             'user' => $user->username,
+            "permission_type_id" => $user->permission_type_id,
             'permission_type' => $user->permissionType->permission,
             'permissions' => $user->filterRoles()->first()->toArray()['permission_type']['permission_group'],
             'token' => $token,
