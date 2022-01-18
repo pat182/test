@@ -22,7 +22,7 @@ class UserService
         $this->status["code"] = $code;
         $this->status["msg"] = $msg;
         if($data)
-            $this->status["data"] = $data->toArray(); 
+            $this->status["data"] = is_array($data) ? $data : $data->toArray();
         else
             $this->status["data"] = [];
         // return $this->status;
@@ -58,6 +58,15 @@ class UserService
             $this->formatStatus(200,config('user.constants.messages.suc-perm'),$user);
         else
             $this->formatStatus(400,config('user.constants.messages.fail'));
+
+        return $this->status;
+    }
+    public function getUsers($params){
+        $user = $this->userRepository->getAllUser($params);
+        if(count($user))
+            $this->formatStatus(200,'',$user);
+        else
+            $this->formatStatus(404,"");
 
         return $this->status;
     }

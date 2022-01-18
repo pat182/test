@@ -15,9 +15,13 @@ class UserController extends Controller
     public function __construct(UserService $userService){
         $this->userService = $userService;
     }
-    public function index()
+    public function index(Request $params)
     {
-        //
+        $this->status = $this->userService->getUsers($params->all());
+          return response()->json([
+                                    "data" => $this->status['data']
+                                ],$this->status['code']);
+
     }
     public function show($id)
     {

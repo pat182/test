@@ -58,7 +58,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(PermissionTypeRepository::class,'permission_type_id','permission_type_id');
     }
     public function userProfile(){
-        return $this->hasOne(UserProfileRepository::class,'user_id');
+        return $this->hasOne(UserProfileRepository::class,'user_id','user_id');
     }
     
     public function filterRoles(){

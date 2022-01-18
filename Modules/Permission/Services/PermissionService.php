@@ -57,7 +57,7 @@ class PermissionService
     }
     public function getPermissionType($id){
         if(!$this->permissionTypeRepo->getPermisssion($id))
-            $this->formatStatus(404,"Data Not Available");
+            $this->formatStatus(404,"");
         else
             $this->formatStatus(200,"",$this->permissionTypeRepo->getPermisssion($id));
         return $this->status;    

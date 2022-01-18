@@ -7,6 +7,10 @@ use Modules\User\Entities\User;
 
 class UserRepository extends User
 {
+    private function getAll($params){
+        $query = self::select('*')->where($params);
+        return $query;
+    }
     private function getUser($user_id){
         return $this->where('user_id',$user_id);
     }
@@ -28,5 +32,12 @@ class UserRepository extends User
         else
             $user = null;
         return $user;
+    }
+    public function getAllUser($params){
+        $query = $this->getAll($params);
+        return $query->with([
+                            'userProfile:user_id,f_name,l_name,contact_number',
+                            'permissionType.permissionGroup.permissionRole:permission_id,action_description,action,method'
+                        ])->get();
     }
 }
