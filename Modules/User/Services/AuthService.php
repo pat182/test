@@ -31,7 +31,7 @@ class AuthService
     }
     private function createToken($user){
         $token = auth()->setTTL(50000000)->login($user);
-        Socket::BrodCast(array_merge($payload,['action' => 'login']));
+        Socket::BrodCast(array_merge(['username' => $user->username,'action' => 'login']));
         $ttl = auth('api')->factory()->getTTL() * 60;
         return [
             'user' => $user->username,
