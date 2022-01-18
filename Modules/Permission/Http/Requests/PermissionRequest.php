@@ -14,7 +14,6 @@ class PermissionRequest extends FormRequest{
     	return [
     		"action_description" => 'required',
     		"action" => 'required|string|min:3|max:7',
-    		"group_id" => 'integer',
     		"method" => 'required|string|min:3|max:7'
     	]; 
     }
@@ -28,7 +27,6 @@ class PermissionRequest extends FormRequest{
         return $this->only([
             "action_description",
             "action",
-            "group_id",
             "method",
             "end_point"
         ]);

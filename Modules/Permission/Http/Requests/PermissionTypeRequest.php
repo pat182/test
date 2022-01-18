@@ -14,15 +14,6 @@ class PermissionTypeRequest extends FormRequest{
     		"permission" => 'required|unique:permission_type|string|max:45|regex:/^[A-Za-z]+$/'
     	]; 
     }
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    // public function authorize()
-    // {
-    //     return true;
-    // }
    	public function payload()
     {
         return $this->only([

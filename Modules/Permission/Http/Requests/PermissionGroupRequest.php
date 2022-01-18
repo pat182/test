@@ -15,15 +15,6 @@ class PermissionGroupRequest extends FormRequest{
             "permission_id" => 'required|integer|min:1|exists:permission,permission_id'
     	]; 
     }
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    // public function authorize()
-    // {
-    //     return true;
-    // }
    	public function payload()
     {
         return $this->only([
