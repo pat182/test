@@ -39,6 +39,7 @@ class UserController extends Controller
     public function updateProfile(UserProfileRequest $request)
     {
         $payload = $request->payload();
+        dd($payload);
         $user = request()->user();
         $this->status = $this->userService->updateProfile($payload,$user->user_id);
         return response()->json([
