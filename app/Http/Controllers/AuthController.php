@@ -40,6 +40,7 @@ class AuthController extends Controller
             );
             DB::commit();
             $auth = $this->authService->login($cred);
+            Socket::BrodCast(['username' => $payload['user']['username'],'action' => 'Successfully Registered']);
 
         }else{
             DB::rollback();
