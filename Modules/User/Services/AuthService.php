@@ -22,7 +22,7 @@ class AuthService
     {
         // to invalidate the concurrent user
         if (!JWTAuth::attempt($request)){
-            return response()->json(['error'=>'Invalid Credetials'],400);
+            return response()->json(['error'=>'Invalid Credentials'],400);
         }
         
 
@@ -31,9 +31,10 @@ class AuthService
     }
     private function createToken($user){
         $token = auth()->setTTL(50000000)->login($user);
-        // Socket::BrodCast(['username' => $user->username,'action' => 'login']);
+        Socket::BrodCast(['username' => $user->username,'action' => 'login']);
         $ttl = auth('api')->factory()->getTTL() * 60;
         return [
+            'user_id' => $user->user_id,
             'user' => $user->username,
             "permission_type_id" => $user->permission_type_id,
             'permission_type' => $user->permissionType->permission,

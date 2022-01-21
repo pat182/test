@@ -8,6 +8,7 @@ use Modules\User\Http\Requests\{UserRequest,LogInRequest};
 use Modules\User\Services\AuthService;
 use Modules\User\Services\UserService;
 use Illuminate\Support\Facades\DB;
+use App\Console\Socket;
 
 class AuthController extends Controller
 {
