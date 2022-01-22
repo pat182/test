@@ -2,7 +2,7 @@
 
 namespace Modules\Permission\Http\Controllers;
 
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Permission\Http\Requests\{PermissionTypeRequest,PermissionRequest,PermissionGroupRequest};
 use Modules\Permission\Services\PermissionService;
@@ -52,5 +52,14 @@ class PermissionController extends Controller
         return response()->json([
                                     'message' => $this->status['msg']
                             ],$this->status["code"]);
+    }
+    public function roleAuto(Request $request){
+        $payload = $request['permission'];
+        $this->status = $this->permissionService->roleAuto($payload);
+
+        return response()->json([
+                                    "message" => $this->status['msg'],
+                                    "data" => $this->status['data']
+                                ],$this->status["code"]);
     }
 }

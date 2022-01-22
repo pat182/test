@@ -23,6 +23,14 @@ class PermissionTypeRepository extends PermissionType
             $permission = $this->formatData($permission->toArray());
         return $permission;
     }
+    public function roleAuto($string){
+        $query = $this->findType(['*'])->where('permission','LIKE',  $string . '%')->get();
+        if(count($query))
+            $data = $query;
+        else
+            $data = null;
+        return $data;
+    }
     private function formatData(array $data) : array
     {
         return [

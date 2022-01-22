@@ -69,4 +69,11 @@ class PermissionService
             $this->formatStatus(400,config('permission.constants.messages.fail'));
         return $this->status; 
     }
+    public function roleAuto($payload){
+        if($this->permissionTypeRepo->roleAuto($payload))
+            $this->formatStatus(200,'',$this->permissionTypeRepo->roleAuto($payload));
+        else
+            $this->formatStatus(200,'No No Records found');
+        return $this->status; 
+    }
 }
