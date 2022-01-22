@@ -19,6 +19,7 @@ class UserController extends Controller
     {
         $this->status = $this->userService->getUsers($params->all());
           return response()->json([
+                                    "message" => $this->status['msg'],
                                     "data" => $this->status['data']
                                 ],$this->status['code']);
 

@@ -66,7 +66,7 @@ class UserService
         if(count($user))
             $this->formatStatus(200,'',$user);
         else
-            $this->formatStatus(404,"");
+            $this->formatStatus(404,"No Records found");
 
         return $this->status;
     }
