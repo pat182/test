@@ -70,4 +70,11 @@ class UserService
 
         return $this->status;
     }
+    public function userAuto($string){
+        if($this->userRepository->userAuto($string))
+            $this->formatStatus(200,'',$this->userRepository->userAuto($string));
+        else
+            $this->formatStatus(404,'No Records found');
+        return $this->status; 
+    }
 }

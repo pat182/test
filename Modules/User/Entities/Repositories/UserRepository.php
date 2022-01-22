@@ -7,7 +7,7 @@ use Modules\User\Entities\User;
 
 class UserRepository extends User
 {
-    private function getAll($params){
+    private function getAll($params = null){
         $query = self::select('*')->where($params);
         return $query;
     }
@@ -32,6 +32,14 @@ class UserRepository extends User
         else
             $user = null;
         return $user;
+    }
+    public function userAuto($string){
+        $query = $this->getAll()->where('username','LIKE',  $string . '%')->get();
+        if(count($query))
+            $data = $query;
+        else
+            $data = null;
+        return $data;
     }
     public function getAllUser($params){
         $query = $this->getAll($params);

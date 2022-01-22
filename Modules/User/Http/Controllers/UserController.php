@@ -55,4 +55,12 @@ class UserController extends Controller
             "message" => $this->status['msg'], 
         ],$this->status['code']);
     }
+    public function userAuto(Request $request){
+        $payload = $request['username'];
+        $this->status = $this->userService->userAuto($payload);
+        return response()->json([
+                                    "message" => $this->status['msg'],
+                                    "data" => $this->status['data']
+                                ],$this->status['code']);
+    }
 }
