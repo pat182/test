@@ -73,7 +73,7 @@ class PermissionService
         if($this->permissionTypeRepo->roleAuto($payload))
             $this->formatStatus(200,'',$this->permissionTypeRepo->roleAuto($payload));
         else
-            $this->formatStatus(200,'No No Records found');
+            $this->formatStatus(400,'No Records found');
         return $this->status; 
     }
 }
