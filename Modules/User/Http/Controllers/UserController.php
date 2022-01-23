@@ -24,9 +24,14 @@ class UserController extends Controller
                                 ],$this->status['code']);
 
     }
-    public function show($id)
+    public function showProfile($user_id)
     {
-        //
+        $this->status = $this->userService->getUserProfile($user_id);
+        return response()->json([
+                                    "message" => $this->status['msg'],
+                                    "data" => $this->status['data']
+                                ],$this->status['code']);
+        
     }
     public function updateUserPerm(UpdateUserPermission $request,$user_id)
     {

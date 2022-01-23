@@ -26,7 +26,7 @@ class AuthService
         }
         
 
-        $user = $this->userRepository->show(Auth::id());
+        $user = $this->userRepository->show(Auth::id())->first();
         return $this->createToken($user);
     }
     private function createToken($user){

@@ -15,7 +15,7 @@ class UserRepository extends User
         return $this->where('user_id',$user_id);
     }
     public function show($user_id){
-        return $this->getUser($user_id)->first();
+        return $this->getUser($user_id);
     }
     public function deleteUser($user_id){
         $user = $this->getUser($user_id)->first();
@@ -47,5 +47,12 @@ class UserRepository extends User
                             'userProfile:user_id,f_name,l_name,contact_number',
                             'permissionType.permissionGroup.permissionRole:permission_id,action_description,action,method'
                         ])->get();
+    }
+    public function getUserProfile($id){
+        $query = $this->getUser($id);
+        return $query->with([
+                'userProfile:user_id,f_name,l_name,contact_number',
+                            'permissionType.permissionGroup.permissionRole:permission_id,action_description,action,method',
+        ])->first();
     }
 }

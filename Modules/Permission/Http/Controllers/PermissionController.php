@@ -16,8 +16,8 @@ class PermissionController extends Controller
     public function __construct(PermissionService $permissionService){
         $this->permissionService = $permissionService;
     }
-    // public function index(){
-        
+    // public function getAlltype(Request $request){
+    //     $this->status = $this->permissionService
     // }
     public function show($perm_id){
         $this->status = $this->permissionService->getPermissionType($perm_id);

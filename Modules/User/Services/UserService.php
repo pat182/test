@@ -41,7 +41,7 @@ class UserService
     }
     public function deleteUser($user_id){
         DB::beginTransaction();
-        $profile = $this->profileRepository->deleteProfile($this->userRepository->show($user_id));
+        $profile = $this->profileRepository->deleteProfile($this->userRepository->show($user_id)->first());
         $user = $this->userRepository->deleteUser($user_id);
         if($profile && $user){
             DB::commit();
@@ -68,6 +68,14 @@ class UserService
         else
             $this->formatStatus(404,"No Records found");
 
+        return $this->status;
+    }
+    public function getUserProfile($id){
+        $user = $this->userRepository->getUserProfile($id);
+        if($user)
+            $this->formatStatus(200,'',$user);
+        else
+            $this->formatStatus(404,'No Records found');
         return $this->status;
     }
     public function userAuto($string){
