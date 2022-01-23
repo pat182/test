@@ -24,7 +24,9 @@ class PermissionTypeRepository extends PermissionType
         return $permission;
     }
     public function roleAuto($string){
-        $query = $this->findType(['*'])->where('permission','LIKE',  $string . '%')->get();
+        $query = $this->findType(['*'])->where('permission','LIKE',  $string . '%')
+        ->orderBy('permission_type_id','Asc')
+        ->get();
         if(count($query))
             $data = $query;
         else
