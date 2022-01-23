@@ -76,4 +76,11 @@ class PermissionService
             $this->formatStatus(400,'No Records found');
         return $this->status; 
     }
+    public function permAuto($payload){
+        if($this->permissionRepo->permAuto($payload))
+            $this->formatStatus(200,'',$this->permissionRepo->permAuto($payload));
+        else
+            $this->formatStatus(400,'No Records found');
+        return $this->status; 
+    }
 }

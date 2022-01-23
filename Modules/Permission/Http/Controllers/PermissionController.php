@@ -59,4 +59,13 @@ class PermissionController extends Controller
                                     "data" => $this->status['data']
                                 ],$this->status["code"]);
     }
+    public function permAuto(Request $request){
+        $payload = $request['permission'];
+        $this->status = $this->permissionService->permAuto($payload);
+        return response()->json([
+                                    "message" => $this->status['msg'],
+                                    "data" => $this->status['data']
+                                ],$this->status["code"]);
+        
+    }
 }

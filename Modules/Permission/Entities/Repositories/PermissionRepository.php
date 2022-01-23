@@ -9,8 +9,19 @@ class PermissionRepository extends Permission
 	/**
     * @return string
     */
+    private function getPermission($col){
+        return self::select($col);
+    }
     public function addPermission($data){
         $permission = self::create($data);
         return $permission->permission_id;
+    }
+    public function permAuto($query){
+        $perms = $this->getPermission(['*'])->get();
+        if(count($perms))
+            $data = $perms;
+        else
+            $data = null;
+        return $data;
     }
 }
