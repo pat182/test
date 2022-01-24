@@ -5,6 +5,7 @@ namespace Modules\Permission\Services;
 use Modules\Permission\Entities\Repositories\PermissionRepository;
 use Modules\Permission\Entities\Repositories\PermissionTypeRepository;
 use Modules\Permission\Entities\Repositories\PermissionGroupRepository;
+use Illuminate\Support\Facades\DB;
 
 class PermissionService
 {
@@ -31,9 +32,40 @@ class PermissionService
             $this->status["data"] = [];
         // return $this->status;
     }
+
     public function addPermType($payload){
-        if($this->permissionTypeRepo->addPermission($payload))
-            $this->formatStatus(200,config('permission.constants.messages.succ'));
+        $flag = true;
+
+
+        DB::beginTransaction();
+
+        $perm_id = $this->permissionTypeRepo->addPermission($payload['permission']);
+        if($perm_id){
+            if(!empty($payload['permission_ids'])){
+               foreach ($payload['permission_ids'] as $value) {
+                   if($this->permissionGroupRepo->addGroupPermission(
+                        [
+                            'permission_type_id' => $perm_id,
+                            'permission_id' => $value
+                        ]
+                    )){
+                        $flag = true;
+                   }
+                   else{
+                        $flag = false;
+                        break;
+                   }
+               }
+            }
+            if($flag){
+                DB::commit();
+                $this->formatStatus(200,config('permission.constants.messages.succ'));    
+            }
+            else{
+                DB::rollback();
+                $this->formatStatus(400,config('permission.constants.messages.fail'));
+            }
+        }   
         else
             $this->formatStatus(400,config('permission.constants.messages.fail'));
 

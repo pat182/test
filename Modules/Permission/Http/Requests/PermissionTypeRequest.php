@@ -17,7 +17,8 @@ class PermissionTypeRequest extends FormRequest{
    	public function payload()
     {
         return $this->only([
-            "permission"
+            "permission",
+            "permission_ids"
         ]);
     }
 }

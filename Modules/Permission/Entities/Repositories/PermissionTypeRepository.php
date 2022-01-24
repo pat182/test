@@ -13,7 +13,7 @@ class PermissionTypeRepository extends PermissionType
         return self::select($col);
     }
     public function addPermission($data){
-        $permission = self::create($data);
+        $permission = self::create(["permission" => $data]);
         return $permission->permission_type_id;
     }
     public function getPermisssion($id){
