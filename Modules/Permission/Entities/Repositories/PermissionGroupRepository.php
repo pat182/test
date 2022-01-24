@@ -11,20 +11,26 @@ class PermissionGroupRepository extends PermissionGroup
     * @return string
     */
     private function getGroup($data){
-        return $this->where("permission_type_id",$data["permission_type_id"])
-                        ->where("permission_id",$data["permission_id"]);
+        return $this->where($data);
     }
     public function addGroupPermission($data){
+
         $permission = self::updateOrCreate($data);
-        if(!$permission->wasRecentlyCreated && !$permission->wasChanged())
-            return 0;
-        else
-            return $permission->permission_type_id;
+        if(!$permission->wasRecentlyCreated && !$permission->wasChanged()){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
     public function remPerm($data){
         $permission = $this->getGroup($data);
-        if($permission->first())
-            $permission = $permission->delete();
+        $data = $permission->get();
+        if(count($data))
+            if(count($data) > 1)
+                $permission = self::destroy($data);    
+            else
+                $permission = $permission->delete();
         else
             $permission = null;
         return $permission;

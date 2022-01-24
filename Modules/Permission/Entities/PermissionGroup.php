@@ -12,6 +12,8 @@ class PermissionGroup extends Model
     // use HasFactory;
     protected $table = 'permission_group';
 
+    protected $primaryKey = 'permission_type_id';
+
     protected $fillable = [
         "permission_type_id",
         "permission_id"

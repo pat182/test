@@ -16,6 +16,20 @@ class PermissionTypeRepository extends PermissionType
         $permission = self::create(["permission" => $data]);
         return $permission->permission_type_id;
     }
+    public function delType($id){
+        $type = $this->findType(['*'])->where('permission_type_id' , $id);
+        if($type->first()){
+            try{
+                $type = $type->delete();
+            }
+            catch(\Exception $ex){
+                $type = $ex;
+            }
+        }
+        else
+            $type = null;
+        return $type;
+    }
     public function getPermisssion($id){
         $permission_type = $this->findType(['*'])->where('permission_type_id',$id);
         $permission = $permission_type->with('permissionGroup.permissionRole')->first();
