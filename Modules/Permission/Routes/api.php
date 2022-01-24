@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 
 
 Route::group(['middleware' => ['api', 'jwt.verify'],'prefix'=>'permission'],function(){
+    Route::get('/', 'PermissionController@index')->middleware('permission')->name('view-permission-mtx');
 
     Route::post('/', 'PermissionController@create')->middleware('permission')->name('add-permission');
 

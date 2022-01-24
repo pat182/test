@@ -89,10 +89,17 @@ class PermissionService
     }
     public function getPermissionType($id){
         if(!$this->permissionTypeRepo->getPermisssion($id))
-            $this->formatStatus(404,"");
+            $this->formatStatus(404,"No Records found");
         else
             $this->formatStatus(200,"",$this->permissionTypeRepo->getPermisssion($id));
         return $this->status;    
+    }
+    public function getRoleMtx($params){
+        if(!$this->permissionTypeRepo->getRoleMtx($params))
+            $this->formatStatus(404,"No Records found");
+        else
+            $this->formatStatus(200,"",$this->permissionTypeRepo->getRoleMtx($params));
+        return $this->status;  
     }
     public function removePerm($payload){
         if($this->permissionGroupRepo->remPerm($payload))

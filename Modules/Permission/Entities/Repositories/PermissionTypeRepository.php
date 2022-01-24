@@ -37,6 +37,17 @@ class PermissionTypeRepository extends PermissionType
             $permission = $this->formatData($permission->toArray());
         return $permission;
     }
+    public function getRoleMtx($params){
+        $query = $this->findType(['*'])->where($params)->orderBy('permission_type_id','Asc');
+        $data = $query->with('permissionGroup.permissionRole')->get()->toArray();
+        $n_data = [];
+        if(count($data)){
+            foreach ($data as $key => $value) {
+                array_push($n_data,$this->formatData($value));
+            }
+        }
+        return $n_data;
+    }
     public function roleAuto($string){
         $query = $this->findType(['*'])->where('permission','LIKE',  $string . '%')
         ->orderBy('permission_type_id','Asc')
@@ -47,7 +58,7 @@ class PermissionTypeRepository extends PermissionType
             $data = null;
         return $data;
     }
-    private function formatData(array $data) : array
+    protected function formatData(array $data) : array
     {
         return [
             "permission_type_id" => $data['permission_type_id'],

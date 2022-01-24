@@ -16,12 +16,10 @@ class PermissionGroupRepository extends PermissionGroup
     public function addGroupPermission($data){
 
         $permission = self::updateOrCreate($data);
-        if(!$permission->wasRecentlyCreated && !$permission->wasChanged()){
+        if(!$permission->wasRecentlyCreated && !$permission->wasChanged())
             return false;
-        }
-        else{
+        else
             return true;
-        }
     }
     public function remPerm($data){
         $permission = $this->getGroup($data);

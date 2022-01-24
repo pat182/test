@@ -17,7 +17,7 @@ class PermissionRepository extends Permission
         return $permission->permission_id;
     }
     public function permAuto($query){
-        $perms = $this->getPermission(['*'])->get();
+        $perms = $this->getPermission(['*'])->where('action_description','LIKE', '%' . $query . '%')->get();
         if(count($perms))
             $data = $perms;
         else

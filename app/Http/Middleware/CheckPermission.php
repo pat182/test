@@ -19,11 +19,14 @@ class CheckPermission
      */
     public function handle(Request $request, Closure $next)
     {
-        $end_point = rtrim(preg_replace('/\d/', '',$request->path()),'/');
+
+        $end_p = explode("\\",$request->route()->getActionName());
+        // $end_point = rtrim(preg_replace('/\d/', '',$request->path()),'/');
+
         $user = JWTAuth::parseToken()->authenticate();
         // preg_replace('/\d/', '', "api/user/delete/22")
         $roles = $user->filterRoles()->first()->toArray()['permission_type']['permission_group'];
-        if(!$has_perm = collect($roles)->where('permission_role.end_point',$end_point)->first())
+        if(!$has_perm = collect($roles)->where('permission_role.end_point',$end_p[count($end_p)-1])->first())
             return response()->json(
                                     ['message' => 'User has no permission'],
                                     422
