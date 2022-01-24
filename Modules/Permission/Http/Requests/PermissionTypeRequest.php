@@ -11,7 +11,7 @@ class PermissionTypeRequest extends FormRequest{
     */
     public function rules(){
     	return [
-    		"permission" => 'required|unique:permission_type|string|max:45|regex:/^[A-Za-z]+$/'
+    		"permission" => 'required|unique:permission_type|string|max:45|regex:/^[A-Za-z_ -]+$/'
     	]; 
     }
    	public function payload()
