@@ -38,6 +38,7 @@ class PermissionController extends Controller
     }
     public function addType(PermissionTypeRequest $request){
         $payload = $request->payload();
+        dd($payload);
         $this->status = $this->permissionService->addPermType($payload);
         return response()->json([
                                     'message' => $this->status['msg']
