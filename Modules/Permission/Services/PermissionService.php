@@ -37,7 +37,7 @@ class PermissionService
 
     public function addPermType($payload){
         $this->flag = true;
-        
+
         DB::beginTransaction();
         $perm_id = $this->permissionTypeRepo->addPermission($payload['permission']);
         if($perm_id){
@@ -127,6 +127,7 @@ class PermissionService
         return $this->status; 
         
     }
+    
     public function roleAuto($payload){
         if($this->permissionTypeRepo->roleAuto($payload))
             $this->formatStatus(200,'',$this->permissionTypeRepo->roleAuto($payload));
@@ -134,6 +135,7 @@ class PermissionService
             $this->formatStatus(400,'No Records found');
         return $this->status; 
     }
+
     public function permAuto($payload){
         if($this->permissionRepo->permAuto($payload))
             $this->formatStatus(200,'',$this->permissionRepo->permAuto($payload));
